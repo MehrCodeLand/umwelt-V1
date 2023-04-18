@@ -6,5 +6,8 @@ namespace umweltV1.Areas.Main.Controllers
     public class HomeController : Controller
     {
         public IActionResult HomeMain() => View();
+
+        [Route("SignUpUser")]
+        public IActionResult SignUpUser() => View();
     }
 }
