@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using umweltV1.Core.Interfaces;
+using umweltV1.Core.Repositories;
 using umweltV1.Data.MyDbContext;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MyDb>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("SqlStr")
     ));
+builder.Services.AddScoped<IMainService, MainRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
