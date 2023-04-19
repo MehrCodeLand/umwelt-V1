@@ -14,14 +14,16 @@ namespace umweltV1.Areas.Main.Controllers
         }
         public IActionResult HomeMain() => View();
 
+
+
         [Route("SignUpUser")]
         public IActionResult SignUpUser() => View();
 
         [HttpPost]
         [Route("SignUpUser")]
-        public IActionResult SignUpUser(SignUpUserVm upUserVm)
+        public IActionResult SignUpUser(SignUpUserVm signUpUserVm)
         {
-
+            var result = _main.SignUpUser(signUpUserVm);
             TempData["error"] = "ErrorUser";
             return View();
         }
