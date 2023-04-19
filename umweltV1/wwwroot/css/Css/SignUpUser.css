@@ -1,0 +1,124 @@
+body {
+    margin:0px ;
+    background-color: #EDF1D6;
+
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+.header-div{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    background-color: #609966 ;
+    margin-bottom: 0px ;
+    padding: 0.4rem ;
+    font-family: monospace;
+    font-size: 1.3rem ;
+}
+.left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+}
+.middle {
+    flex: 1 ;
+    display: flex;
+    justify-content: center;
+
+}
+.right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+}
+
+
+.main-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 1rem ;
+    margin-bottom: 0px ;
+    background-color: #609966 ;
+    padding: 1.5rem ;
+
+    border-radius: 0.3rem ;
+
+    margin-top: 5rem ;
+    margin-left: 10rem ;
+    margin-right: 10rem ;
+    width: auto;
+    height: auto;
+}
+.form-signUp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 10;
+}
+.main-right {
+    flex: 3;
+}
+.main-left {
+    flex: 3;
+}
+.form-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 1rem ;
+    
+}
+input {
+    padding: 0.7rem ;
+    border: none;
+    border-radius: 0.1rem ;
+    margin-left: 3rem ;
+    margin-right: 3rem ;
+    font-family: monospace;
+    font-size: 1rem ;
+    max-width:auto;
+} 
+
+button {
+    font-family: monospace;
+    font-size: 1rem ;
+    border: none ;
+    border-radius: 0.2rem ;
+    padding: 0.6rem 1.3rem ;
+    background-color: #EDF1D6;
+    color: #609966;
+    font-weight: bold;
+}
+.submit {
+    background-color: #EDF1D6;
+    color: #609966;
+    font-weight: bold;
+}
+.extra-form-btn {
+    margin-top: 2rem ;
+    display: flex;
+    justify-content: center;
+}
+.extra-btns {
+    display: flex;
+    margin-top: 2rem ;
+    justify-content: center;
+    background-color: #609966;
+}
+.extra-form {
+    justify-content: center;
+    margin: 2rem ;
+}

@@ -1,15 +1,63 @@
-﻿
+﻿@using umweltV1.Data.ViewModels
+@model SignUpUserVm
+
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>SignUpUser</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Css/SignUpUser.css">
+    <link href="~/js/sweettoast/swal.css" rel="stylesheet" />
+    <title>Umwelt | SignUp</title>
 </head>
 <body>
+
+    <div class="container">
+        <div class="header-div">
+            <div class="left">s</div>
+            <div class="middle">s</div>
+            <div class="right">s</div>
+        </div>
+
+        <div class="main-div">
+            <div class="form-div">
+                <div class="main-left"></div>
+                <form class="form-signUp" method="post">
+                    <div class="form-input">
+                        <input asp-for="Email" type="email" class="email-form" placeholder="Email">
+                        <input asp-for="Username" type="text" class="username-form" placeholder="Username">
+                        <input asp-for="Password" type="password" class="password-form" placeholder="Password">
+                        <input asp-for="RePassword" type="password" class="Repassword-form" placeholder="Re-Password">
+                        <div class="extra-form-btn">
+                            <button type="submit" class="submit">Sign Up</button>
+                        </div>
+                        <div hidden asp-validation-summary="All"></div>
+                    </div>
+                </form>
+                <div class="main-right"></div>
+            </div>
+            <div class="extra-btns">
+                <form asp-area="Main" asp-controller="Home" asp-action="HomeMain" class="extra-form">
+                    <button type="submit" class="back-btn">Back</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="hidden" id="message1" value="@TempData["success"]" />
+        <input type="hidden" id="message2" value="@TempData["error"]" />
+        <input hidden id="message3" value="@TempData["warning"]" />
+        <input hidden id="message4" value="@TempData["info"]" />
+    </div>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <partial name="_SideMessage" />
 </body>
 </html>
+

@@ -11,6 +11,11 @@ namespace umweltV1.Core.Repositories
             return 0; 
         }
 
+        private int ValidationSignUpData(SignUpUserVm signUpUser)
+        {
+
+            return 0;
+        }
         #endregion
     }
 }

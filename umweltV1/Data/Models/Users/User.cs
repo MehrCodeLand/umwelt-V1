@@ -1,7 +1,11 @@
-﻿namespace umweltV1.Data.Models.Users
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace umweltV1.Data.Models.Users
 {
     public class User
     {
+        [Key]
         public int UserId { get; set; }
         public int MyUserId { get; set; }
         public string Username { get; set; }
