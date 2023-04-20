@@ -24,7 +24,11 @@ namespace umweltV1.Areas.Main.Controllers
         public IActionResult SignUpUser(SignUpUserVm signUpUserVm)
         {
             var result = _main.SignUpUser(signUpUserVm);
-            TempData["error"] = "ErrorUser";
+            if(result < 0)
+            {
+                return View();
+            }
+            TempData["success"] = "Its Work bitch";
             return View();
         }
     }

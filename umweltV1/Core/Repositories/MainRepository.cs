@@ -19,6 +19,9 @@ namespace umweltV1.Core.Repositories
         public int SignUpUser(SignUpUserVm signUpUser)
         {
             var result = ValidationSignUpData(signUpUser);
+            if(result < 0 ) return result;
+
+
             return 0; 
         }
 
@@ -38,10 +41,12 @@ namespace umweltV1.Core.Repositories
         private int ValidationSignUpData(SignUpUserVm signUpUser)
         {
             if(signUpUser == null) { return -100 ; }
+            else if(signUpUser.Password == null) { return -100 ; }
+            else if(signUpUser.RePassword == null ) { return -100 ; }
             else if(signUpUser.Username == null || signUpUser.Username.Length < 3 ) { return -120 ; }
+            else if(signUpUser.Email == null ) { return -150;  }
             else if(signUpUser.Password != signUpUser.RePassword ) { return -130;  }
             else if(signUpUser.Password.Length < 8 ) { return -140; }
-            else if(signUpUser.Email == null ) { return -150;  }
 
             else if(ValidateEmailRegex(signUpUser.Email.ToLower()) == -60) { return -60; }
             else if(IsEmail(signUpUser.Email.ToLower()) == -50) { return -30; }
