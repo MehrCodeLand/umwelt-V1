@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using umweltV1.Data.MyDbContext;
 
@@ -11,9 +12,10 @@ using umweltV1.Data.MyDbContext;
 namespace umweltV1.Migrations
 {
     [DbContext(typeof(MyDb))]
-    partial class MyDbModelSnapshot : ModelSnapshot
+    [Migration("20230420185203_NULLOrNot")]
+    partial class NULLOrNot
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

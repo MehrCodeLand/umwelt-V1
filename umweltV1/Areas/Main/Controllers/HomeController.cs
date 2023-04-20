@@ -29,7 +29,8 @@ namespace umweltV1.Areas.Main.Controllers
                 TempData["error"] = result.Message.ToString();
                 return View();
             }
-            TempData["success"] = "Its Work bitch";
+
+            TempData["success"] = result.Message.ToString();
             return View();
         }
     }
