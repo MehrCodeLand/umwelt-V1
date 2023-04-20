@@ -1,31 +1,42 @@
-﻿.colored-toast.swal2-icon-success {
+﻿
+
+.colored-toast.swal2-icon-success {
+    font-family: monospace;
     background-color: #a5dc86 !important;
 }
 
 .colored-toast.swal2-icon-error {
+    font-family: monospace;
     background-color: #f27474 !important;
 }
 
 .colored-toast.swal2-icon-warning {
+    font-family: monospace;
     background-color: #f8bb86 !important;
 }
 
 .colored-toast.swal2-icon-info {
+    font-family: monospace;
     background-color: #3fc3ee !important;
 }
 
 .colored-toast.swal2-icon-question {
+    font-family: monospace;
     background-color: #87adbd !important;
 }
 
 .colored-toast .swal2-title {
+    font-family: monospace;
+    font-size: 1.5rem ;
     color: white;
 }
 
 .colored-toast .swal2-close {
+    font-family: monospace;
     color: white;
 }
 
 .colored-toast .swal2-html-container {
+    font-family: monospace;
     color: white;
 }

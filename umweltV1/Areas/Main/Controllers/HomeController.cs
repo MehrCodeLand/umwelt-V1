@@ -24,8 +24,9 @@ namespace umweltV1.Areas.Main.Controllers
         public IActionResult SignUpUser(SignUpUserVm signUpUserVm)
         {
             var result = _main.SignUpUser(signUpUserVm);
-            if(result < 0)
+            if(result.ErrorId != 0)
             {
+                TempData["error"] = result.Message.ToString();
                 return View();
             }
             TempData["success"] = "Its Work bitch";

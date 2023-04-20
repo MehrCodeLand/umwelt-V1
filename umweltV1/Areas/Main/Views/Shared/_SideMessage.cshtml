@@ -11,7 +11,7 @@
                 popup: 'colored-toast'
             },
             showConfirmButton: false,
-            timer: 3500,
+            timer: 4500,
             timerProgressBar: true
         })
         Toast.fire({
@@ -23,7 +23,7 @@
 else if (TempData["error"] != null )
 {
     <script>
-        var message = '@TempData["success"].ToString()';
+        var message = '@TempData["error"].ToString()';
 
         const Toast = Swal.mixin({
             toast: true,
@@ -33,7 +33,7 @@ else if (TempData["error"] != null )
                 popup: 'colored-toast'
             },
             showConfirmButton: false,
-            timer: 1500,
+            timer: 4500,
             timerProgressBar: true
         })
         Toast.fire({

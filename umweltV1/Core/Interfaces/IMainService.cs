@@ -1,10 +1,11 @@
-﻿using umweltV1.Data.ViewModels;
+﻿using umweltV1.Data.Models.Structs;
+using umweltV1.Data.ViewModels;
 
 namespace umweltV1.Core.Interfaces
 {
     public interface IMainService
     {
-        int SignUpUser(SignUpUserVm signUpUser);
+        MessageData SignUpUser(SignUpUserVm signUpUser);
 
     }
 }
