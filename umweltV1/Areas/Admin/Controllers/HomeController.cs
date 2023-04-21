@@ -6,5 +6,6 @@ namespace umweltV1.Areas.Admin.Controllers
     public class HomeController : Controller
     {
         public IActionResult AdminHome() => View();
+
     }
 }

@@ -4,13 +4,45 @@
 }
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AdminHome</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Css/AdminMain.css">
+    <title>Admin | Main</title>
 </head>
 <body>
-    <a asp-area="Main" asp-controller="Home" asp-action="HomeMain">Main Page</a>
+
+
+    <div class="container">
+        <div class="header-div">
+            <div class="left">s</div>
+            <div class="middle">s</div>
+            <div class="right">s</div>
+        </div>
+
+        <div class="main-div">
+            <div class="all-buttons">
+                <button type="button" class="create-role">
+                    <a href="#">
+                        Create Role
+                    </a>
+                </button>
+                <button class="all-users">
+                    <a href="#">
+                        All Users
+                    </a>
+                </button>
+                <button type="button" class="main-home">
+                    <a asp-area="Main" asp-controller="Home" asp-action="HomeMain">
+                        Home Web
+                    </a>
+                </button>
+            </div>
+        </div>
+
+
+    </div>
 </body>
 </html>
