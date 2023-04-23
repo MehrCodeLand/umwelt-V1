@@ -137,6 +137,29 @@ namespace umweltV1.Core.Repositories
             if(result != true) { return -60; }
             return 60;
         }
+        private MessageData AddUser(User user)
+        {
+            _db.Users.Add(user);
+            Save();
+
+            var IsAdded = IsUserCreate(user.Username);
+
+            MessageData message = new MessageData();
+            if (IsAdded != true)
+            {
+                message.ErrorId = -500;
+                message.Message = "We Have Problem,now try again!";
+                return message;
+            }
+
+            message.SuccessId = 500;
+            message.Message = "Be Green :)";
+            return message;
+        }
+        private bool IsUserCreate(string username)
+        {
+            return _db.Users.Any(u => u.Username == username);
+        }
 
         #endregion
 
@@ -170,29 +193,7 @@ namespace umweltV1.Core.Repositories
          -500:Faild to Add
          500:We Add User
          */
-        private MessageData AddUser(User user)
-        {
-            _db.Users.Add(user);
-            Save();
 
-            var IsAdded = IsUserCreate(user.Username);
-
-            MessageData message = new MessageData();
-            if(IsAdded != true)
-            {
-                message.ErrorId = -500;
-                message.Message = "We Have Problem,now try again!";
-                return message;
-            }
-
-            message.SuccessId = 500;
-            message.Message = "Be Green :)";
-            return message;
-        }
-        private bool IsUserCreate(string username)
-        {
-            return _db.Users.Any(u => u.Username == username);
-        }
         private void Save()
         {
             _db.SaveChanges();
