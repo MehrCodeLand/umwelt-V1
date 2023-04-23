@@ -11,6 +11,8 @@ builder.Services.AddDbContext<MyDb>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("SqlStr")
     ));
 builder.Services.AddScoped<IMainService, MainRepository>();
+builder.Services.AddScoped<IAdminService, AdminRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
