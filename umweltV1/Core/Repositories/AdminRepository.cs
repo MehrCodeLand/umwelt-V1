@@ -37,7 +37,7 @@ namespace umweltV1.Core.Repositories
 
             Role role = new Role()
             {
-                RoleId = CreateRandomId.CreateId(),
+                MyRoleId = CreateRandomId.CreateId(),
                 Title = createRole.Tiltle.ToLower(),
                 IsDeleted = false,
             };

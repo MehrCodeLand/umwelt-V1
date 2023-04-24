@@ -6,6 +6,7 @@ namespace umweltV1.Data.Models.Users
     {
         [Key]
         public int RoleId { get; set; }
+        public int MyRoleId { get; set; }
         public string Title { get; set; }
         public bool IsDeleted { get; set; }
 
