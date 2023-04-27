@@ -5,6 +5,7 @@ namespace umweltV1.Core.Interfaces
 {
     public interface IAdminService
     {
-        MessageData CreatateRole( CreateRoleVm createRole );
+        MessageData CreateRole( CreateRoleVm createRole );
+        MessageData CreatePermission( CreatePermisionVm permisionVm );
     }
 }

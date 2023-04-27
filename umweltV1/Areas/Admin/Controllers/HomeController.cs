@@ -26,7 +26,7 @@ namespace umweltV1.Areas.Admin.Controllers
         [Route("CreateRole")]
         public IActionResult CreateRole(CreateRoleVm createRole )
         {
-            var message = _admin.CreatateRole(createRole);
+            var message = _admin.CreateRole(createRole);
             if(message.ErrorId < 0)
             {
                 TempData["error"] = message.Message.ToString();

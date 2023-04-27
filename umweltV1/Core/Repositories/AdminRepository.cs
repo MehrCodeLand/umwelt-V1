@@ -17,7 +17,46 @@ namespace umweltV1.Core.Repositories
 
 
 
+        #region Permission
 
+        public MessageData CreatePermission(CreatePermisionVm permisionVm)
+        {
+            MessageData message = new MessageData();
+
+
+
+            return message;
+        }
+
+        private MessageData ValidatePermission(CreatePermisionVm permisionVm)
+        {
+            MessageData message = new MessageData();
+
+            if(permisionVm.Title == null || permisionVm.Title.Length < 3)
+            {
+                message.ErrorId = -50;
+                message.Message = "title is to short";
+
+                return message;
+            }
+            else if(permisionVm.Title.Length > 15)
+            {
+                message.ErrorId = -30;
+                message.Message = "title is to long";
+
+                return message;
+            }
+            else if(permisionVm.Title.Any(char.IsDigit))
+            {
+                message.ErrorId = -70;
+                message.Message = "title has number!";
+
+                return message;
+            }
+
+            return message; 
+        }
+        #endregion
 
         #region Role
 
@@ -27,7 +66,7 @@ namespace umweltV1.Core.Repositories
         -150:title is to long
         100:Done
          */
-        public MessageData CreatateRole(CreateRoleVm createRole)
+        public MessageData CreateRole(CreateRoleVm createRole)
         {
 
             // validate first 
@@ -107,6 +146,8 @@ namespace umweltV1.Core.Repositories
         {
             _db.SaveChanges();
         }
+
+
 
 
         #endregion
