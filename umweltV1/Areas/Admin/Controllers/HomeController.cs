@@ -46,7 +46,14 @@ namespace umweltV1.Areas.Admin.Controllers
         [Route("CreatePermission")]
         public IActionResult CreatePermission(CreatePermisionVm createPermision )
         {
+            var resultMessage = _admin.CreatePermission(createPermision);
+            if(resultMessage.ErrorId < 0)
+            {
+                TempData["error"] = resultMessage.Message.ToString();
+                return View();
+            }
 
+            TempData["success"] = resultMessage.Message.ToString();
             return View();
         }
     }

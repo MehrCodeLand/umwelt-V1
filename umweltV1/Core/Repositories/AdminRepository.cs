@@ -1,4 +1,5 @@
-﻿using umweltV1.Core.Interfaces;
+﻿using System.Text.RegularExpressions;
+using umweltV1.Core.Interfaces;
 using umweltV1.Data.Models.Structs;
 using umweltV1.Data.Models.Users;
 using umweltV1.Data.MyDbContext;
@@ -23,11 +24,59 @@ namespace umweltV1.Core.Repositories
         {
             MessageData message = new MessageData();
 
+            message = ValidatePermission(permisionVm);
+            if(message.ErrorId < 0)
+            {
+                return message;
+            }
 
 
+            // parent id 
+            Permission permission = new Permission()
+            {
+                MyPermissionId = CreateRandomId.CreateId(),
+                Title = permisionVm.Title.ToLower(),
+            };
+
+            message = AddPermission(permission);
             return message;
         }
 
+        private MessageData AddPermission(Permission permission)
+        {
+            MessageData message = new MessageData();
+
+            _db.Permissions.Add(permission);
+            Save();
+
+            var result = IsPermissionAdedd(permission.Title);
+            if (!result)
+            {
+                message.SuccessId = 100;
+                message.Message = "somthings wrong!";
+                return message;
+            }
+
+            message.ErrorId = -100;
+            message.Message = "Done.";
+            return message;
+        }
+
+        private bool IsPermissionAdedd(string title)
+        {
+            return _db.Permissions.Any(u => u.Title == title);
+        }
+
+
+
+        /*
+        100: Done
+        -50: title is to short
+        -30: title is to long
+        -70: title has number
+        -10: title is exist
+        -120: special char error 
+         */
         private MessageData ValidatePermission(CreatePermisionVm permisionVm)
         {
             MessageData message = new MessageData();
@@ -53,9 +102,39 @@ namespace umweltV1.Core.Repositories
 
                 return message;
             }
+            if(PermissionIsExist(permisionVm.Title.ToLower()) == true)
+            {
+                message.ErrorId = -10;
+                message.Message = "This Title is exist!";
+
+                return message;
+            }
+            else if (RegexIsSpecialCharacters(permisionVm.Title.ToLower()))
+            {
+                message.ErrorId = -120;
+                message.Message = "Spacial Characters!";
+
+                return message;
+            }
+
 
             return message; 
         }
+
+
+        private bool PermissionIsExist( string title)
+        {
+            return _db.Permissions.Any(u => u.Title == title);
+        }
+
+        private bool RegexIsSpecialCharacters(string title)
+        {
+            var regexItem = new Regex("^[a-zA-Z]*$");
+            if (!regexItem.IsMatch(title)) { return false; }
+
+            return true;
+        }
+
         #endregion
 
         #region Role
@@ -125,10 +204,10 @@ namespace umweltV1.Core.Repositories
 
             // IS adedd?
             var result = IsRoleAdded(role.Title);
-            if(result == true)
+            if(result == false)
             {
                 message.ErrorId = -200;
-                message.Message = "this role, has been adedd before!";
+                message.Message = "Somthings Wrong ";
 
                 return message;
             }
@@ -151,5 +230,6 @@ namespace umweltV1.Core.Repositories
 
 
         #endregion
+
     }
 }
