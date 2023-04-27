@@ -36,5 +36,18 @@ namespace umweltV1.Areas.Admin.Controllers
             TempData["success"] = message.Message.ToString();
             return View();
         }
+
+
+        [HttpGet]
+        [Route("CreatePermission")]
+        public IActionResult CreatePermission() => View();
+
+        [HttpPost]
+        [Route("CreatePermission")]
+        public IActionResult CreatePermission(CreatePermisionVm createPermision )
+        {
+
+            return View();
+        }
     }
 }
