@@ -17,7 +17,6 @@ namespace umweltV1.Core.Repositories
         }
 
 
-
         #region Permission
 
         public MessageData CreatePermission(CreatePermisionVm permisionVm)
@@ -46,7 +45,6 @@ namespace umweltV1.Core.Repositories
             message = AddPermission(permission);
             return message;
         }
-
         private MessageData AddPermission(Permission permission)
         {
             MessageData message = new MessageData();
@@ -66,17 +64,14 @@ namespace umweltV1.Core.Repositories
             message.Message = "Done.";
             return message;
         }
-
         private bool IsPermissionAdedd(string title)
         {
             return _db.Permissions.Any(u => u.Title == title);
         }
-
         public IList<string> GetAllPermissionTitle()
         {
             return _db.Permissions.Select(u => u.Title).ToList();
         }
-
         private int GetParentId(string parentName)
         {
             var permission = _db.Permissions.SingleOrDefault(u => u.Title == parentName);
@@ -247,6 +242,7 @@ namespace umweltV1.Core.Repositories
 
 
         #endregion
+
 
     }
 }
