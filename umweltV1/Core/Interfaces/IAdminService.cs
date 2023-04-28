@@ -7,5 +7,6 @@ namespace umweltV1.Core.Interfaces
     {
         MessageData CreateRole( CreateRoleVm createRole );
         MessageData CreatePermission( CreatePermisionVm permisionVm );
+        IList<string> GetAllPermissionTitle();
     }
 }

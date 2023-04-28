@@ -38,6 +38,11 @@ namespace umweltV1.Core.Repositories
                 Title = permisionVm.Title.ToLower(),
             };
 
+            if(permisionVm.ParentName != "null")
+            {
+                permission.ParentId = GetParentId(permisionVm.ParentName);
+            }
+
             message = AddPermission(permission);
             return message;
         }
@@ -57,7 +62,7 @@ namespace umweltV1.Core.Repositories
                 return message;
             }
 
-            message.ErrorId = -100;
+            message.ErrorId = 100;
             message.Message = "Done.";
             return message;
         }
@@ -67,7 +72,21 @@ namespace umweltV1.Core.Repositories
             return _db.Permissions.Any(u => u.Title == title);
         }
 
+        public IList<string> GetAllPermissionTitle()
+        {
+            return _db.Permissions.Select(u => u.Title).ToList();
+        }
 
+        private int GetParentId(string parentName)
+        {
+            var permission = _db.Permissions.SingleOrDefault(u => u.Title == parentName);
+            if(permission == null)
+            {
+                return -122;
+            }
+
+            return permission.PermissionID;
+        }
 
         /*
         100: Done
@@ -109,7 +128,7 @@ namespace umweltV1.Core.Repositories
 
                 return message;
             }
-            else if (RegexIsSpecialCharacters(permisionVm.Title.ToLower()))
+            else if (!RegexIsSpecialCharacters(permisionVm.Title.ToLower()))
             {
                 message.ErrorId = -120;
                 message.Message = "Spacial Characters!";
@@ -120,13 +139,10 @@ namespace umweltV1.Core.Repositories
 
             return message; 
         }
-
-
         private bool PermissionIsExist( string title)
         {
             return _db.Permissions.Any(u => u.Title == title);
         }
-
         private bool RegexIsSpecialCharacters(string title)
         {
             var regexItem = new Regex("^[a-zA-Z]*$");
@@ -225,6 +241,7 @@ namespace umweltV1.Core.Repositories
         {
             _db.SaveChanges();
         }
+
 
 
 

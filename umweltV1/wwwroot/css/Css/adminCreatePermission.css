@@ -1,0 +1,64 @@
+body {
+    margin:0px ;
+    background-color: #EDF1D6;
+
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+.header-div{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    background-color: #609966 ;
+    margin-bottom: 0px ;
+    padding: 0.4rem ;
+    font-family: monospace;
+    font-size: 1.3rem ;
+}
+.left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+}
+.middle {
+    flex: 1 ;
+    display: flex;
+    justify-content: center;
+
+}
+.right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+}
+
+.main-div {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 0.3rem ;
+
+    background-color: #609966 ;
+    margin-top: 7rem  ;
+    margin-left: 1rem ;
+    margin-right: 1rem ;
+
+    justify-content: center;
+    align-content: center;
+}
+.form-div {
+    display: flex;
+    justify-content: center;
+
+}
+.title{
+    font-size: 1.3rem ;
+    font-family: monospace;
+    padding-left: 0.5rem ;
+}

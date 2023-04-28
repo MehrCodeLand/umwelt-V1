@@ -40,7 +40,17 @@ namespace umweltV1.Areas.Admin.Controllers
 
         [HttpGet]
         [Route("CreatePermission")]
-        public IActionResult CreatePermission() => View();
+        public IActionResult CreatePermission()
+        {
+            CreatePermisionVm createPermision = new CreatePermisionVm();
+            createPermision.ParentTitle = _admin.GetAllPermissionTitle();
+            if(createPermision.ParentTitle.Count < 1 )
+            {
+                return NotFound();
+            }
+
+            return View(createPermision);
+        }
 
         [HttpPost]
         [Route("CreatePermission")]
@@ -49,12 +59,12 @@ namespace umweltV1.Areas.Admin.Controllers
             var resultMessage = _admin.CreatePermission(createPermision);
             if(resultMessage.ErrorId < 0)
             {
+                createPermision.ParentTitle = _admin.GetAllPermissionTitle();
                 TempData["error"] = resultMessage.Message.ToString();
-                return View();
+                return View(createPermision);
             }
 
-            TempData["success"] = resultMessage.Message.ToString();
-            return View();
+            return RedirectToAction("AdminHome");
         }
     }
 }

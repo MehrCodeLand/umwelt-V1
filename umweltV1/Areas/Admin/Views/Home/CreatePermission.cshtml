@@ -1,0 +1,44 @@
+﻿@using umweltV1.Data.ViewModels
+@model CreatePermisionVm
+
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/Css/adminCreatePermission.css">
+    <title>Umwelt | Create Permission</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header-div">
+            <div class="left">s</div>
+            <div class="middle">s</div>
+            <div class="right">s</div>
+        </div>
+
+
+        <div class="main-div">
+            <input type="hidden" asp-for="ParentTitle" value="@Model.ParentTitle" />
+            <form method="post" class="form-div">
+                <input asp-for="Title" type="text" class="title">
+                <br><br>
+                <select asp-for="ParentName" >
+                    <option value="null"></option>
+                    @foreach(var title in Model.ParentTitle)
+                    {
+                        <option value="@title">@title</option>
+                    }
+                </select>
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
