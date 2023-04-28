@@ -15,5 +15,7 @@ namespace umweltV1.Data.Models.Users
         public int RoleId { get; set; }
         [ForeignKey(nameof(RoleId))]
         public Role Role { get; set; }
+
+
     }
 }

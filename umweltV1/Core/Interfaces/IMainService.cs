@@ -6,5 +6,7 @@ namespace umweltV1.Core.Interfaces
     public interface IMainService
     {
         MessageData SignUpUser(SignUpUserVm signUpUser);
+
+        bool CheackPermissionID(int permissionId, string email);
     }
 }

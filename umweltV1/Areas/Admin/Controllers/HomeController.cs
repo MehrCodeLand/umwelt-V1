@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using umweltV1.Core.Interfaces;
+using umweltV1.Data.Models.Attributes;
 using umweltV1.Data.Models.Structs;
 using umweltV1.Data.ViewModels;
 
 namespace umweltV1.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
+    // thast means if permission id == 1 
+    // and we can create this for action :)
+    //[PermissionChecker(1)]
     public class HomeController : Controller
     {
         private readonly IAdminService _admin;

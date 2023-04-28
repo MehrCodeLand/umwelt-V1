@@ -18,6 +18,28 @@ namespace umweltV1.Core.Repositories
         }
 
 
+        // new and dear things
+        public bool CheackPermissionID(int permissionId, string email)
+        {
+
+            int userId = _db.Users.FirstOrDefault(x => x.Email == email.ToLower()).UserId;
+
+            List<int> roleIds = _db.UserRoles.Where(x => x.UserId == userId).Select(x => x.RoleId).ToList();
+
+
+            if (roleIds.Any()) { return false ; }
+
+            foreach(int roleId in roleIds)
+            {
+                foreach( var rolePermission in _db.RolePermissions.Where(x => x.RoleId == roleId).ToList())
+                {
+                    if(rolePermission.PermissionId == permissionId) { return true; }
+                }
+            }
+
+            return false;
+        }
+
         #region SignUp User
         public MessageData SignUpUser(SignUpUserVm signUpUser)
         {
