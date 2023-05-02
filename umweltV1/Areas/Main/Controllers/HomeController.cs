@@ -59,8 +59,22 @@ namespace umweltV1.Areas.Main.Controllers
 
         public IActionResult ConfirmAccount(  string id )
         {
-            var data = id;
+            var message = _main.AcceeptUser(id);
+            if(message.ErrorId < 0)
+            {
+                if(message.ErrorId == -2010)
+                {
+                    TempData["error"] = message.Message.ToString();
+                    // send email again
+                    return View();
+                }
+
+                TempData["error"] = message.Message.ToString();
+                return View();
+            }
+
             // time to validate somthings
+            TempData["success"] = message.Message.ToString();
             return View();
         }
     }

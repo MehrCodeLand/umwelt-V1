@@ -205,6 +205,66 @@ namespace umweltV1.Core.Repositories
             return confirmVm;
         }
 
+
+        /*
+         
+        -900:fake data
+        -2010:thtas to late
+        -3000:We cant update user
+         300:Done
+         */
+        public MessageData AcceeptUser(string confirmCode)
+        {
+            var message = new MessageData();
+
+            var user = _db.Users.FirstOrDefault(u => u.ConfirmCode == confirmCode);
+
+            if (user == null)
+            {
+                message.ErrorId = -900;
+                message.Message = "Invalid Data and code!";
+                return message ;
+            }
+            
+            
+            if(user.Created.AddMinutes(15) > DateTime.Now)
+            {
+                // we will send him email again
+                message.ErrorId = -2010;
+                message.Message = "thtas to late,we will send\n" +
+                    "send you another email\n" +
+                    "be quick ;)";
+
+                return message;
+            }
+
+            // ready to accept him
+            user.IsConfirmCode = true;
+            confirmCode = CreateConfirmCodeEmail.ConfirmCode();
+
+            // time to update user
+            var result = UpdateUser(user);
+            if(result == false)
+            {
+                // we need better this latter
+                message.ErrorId = -3000;
+                message.Message = "We cant do this right now!";
+
+                return message;
+            }
+
+            message.SuccessId = 300;
+            message.Message = "Dooone!\n" +
+                "now your our frinds";
+            return message;
+        }
+
+        private bool UpdateUser( User user)
+        {
+            _db.Users.Update(user);
+            Save();
+            return true;
+        }
         #endregion
 
         #region IsExist
@@ -242,6 +302,7 @@ namespace umweltV1.Core.Repositories
         {
             _db.SaveChanges();
         }
+
 
 
         #endregion

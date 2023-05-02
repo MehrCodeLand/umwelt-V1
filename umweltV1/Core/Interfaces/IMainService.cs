@@ -8,5 +8,6 @@ namespace umweltV1.Core.Interfaces
         MessageData SignUpUser(SignUpUserVm signUpUser);
         bool CheackPermissionID(int permissionId, string email);
         ConfirmEmailAcountVm CreateConfirmModel(string email);
+        MessageData AcceeptUser(string confirmCode);
     }
 }
