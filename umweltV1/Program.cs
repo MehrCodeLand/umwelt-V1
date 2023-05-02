@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using umweltV1.Core.Interfaces;
 using umweltV1.Core.Repositories;
 using umweltV1.Data.MyDbContext;
+using static umweltV1.Security.Sender.EmailSender.RenderFile.ViewToString;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<MyDb>(options => options.UseSqlServer(
     ));
 builder.Services.AddScoped<IMainService, MainRepository>();
 builder.Services.AddScoped<IAdminService, AdminRepository>();
+builder.Services.AddScoped<IViewRenderService, RenderViewToString>();
 
 var app = builder.Build();
 

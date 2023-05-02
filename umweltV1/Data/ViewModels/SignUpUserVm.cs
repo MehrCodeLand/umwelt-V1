@@ -18,5 +18,7 @@ namespace umweltV1.Data.ViewModels
         public string RePassword { get; set; }
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
+        public string ConfirmCode { get; set; }
     }
 }

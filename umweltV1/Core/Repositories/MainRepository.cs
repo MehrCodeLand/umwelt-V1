@@ -54,9 +54,13 @@ namespace umweltV1.Core.Repositories
                 Email = signUpUser.Email.ToLower(),
                 Password = HashPasswordC.EncodePasswordMd5(signUpUser.Password),
                 ConfirmCode = CreateConfirmCodeEmail.ConfirmCode(),
+                DateToConfirmCode = DateTime.Now,
             };
 
             result = AddUser(user);
+            result.Message = "Your Account Was created,We Sent you confirm-Code\n" +
+                "please check your email now";
+
             return result;
         }
 
@@ -186,6 +190,23 @@ namespace umweltV1.Core.Repositories
 
         #endregion
 
+
+        #region Register Confirm Code
+
+        public ConfirmEmailAcountVm CreateConfirmModel(string email)
+        {
+            var confirmCodeUser = _db.Users.FirstOrDefault(u => u.Email == email).ConfirmCode;
+
+            var confirmVm = new ConfirmEmailAcountVm()
+            {
+                ConfirmCode = confirmCodeUser,
+            };
+
+            return confirmVm;
+        }
+
+        #endregion
+
         #region IsExist
 
         /*
@@ -221,6 +242,8 @@ namespace umweltV1.Core.Repositories
         {
             _db.SaveChanges();
         }
+
+
         #endregion
     }
 }
