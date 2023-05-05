@@ -17,25 +17,6 @@ namespace umweltV1.Core.Repositories
             _db = db;
         }
 
-
-        #region IsExist
-
-        /*
-         -50:Username Exist
-         50:Username Not Found   
-         30:Email Is Not Found
-         -30:Email IS Exist
-         */
-        private bool IsUsername(string username)
-        {
-            return _db.Users.Any(u => u.Username == username);
-        }
-        private bool IsEmail(string email)
-        {
-            return _db.Users.Any(u => u.Email == email);
-        }
-        #endregion
-
         // new and dear things
         public bool CheackPermissionID(int permissionId, string email)
         {
@@ -57,6 +38,91 @@ namespace umweltV1.Core.Repositories
 
             return false;
         }
+
+        #region IsExist
+
+        /*
+         -50:Username Exist
+         50:Username Not Found   
+         30:Email Is Not Found
+         -30:Email IS Exist
+         */
+        private bool IsUsername(string username)
+        {
+            return _db.Users.Any(u => u.Username == username);
+        }
+        private bool IsEmail(string email)
+        {
+            return _db.Users.Any(u => u.Email == email);
+        }
+        #endregion
+
+        #region SignIn
+
+        public MessageData SignInUser(SignInVm signIn)
+        {
+            var message = new MessageData();
+            signIn.Email = signIn.Email.ToLower();
+
+            if (signIn == null)
+            {
+                message.ErrorId = -120;
+                message.Message = "Invalid Data";
+
+                return message;
+            }
+            else if (signIn.Email == null)
+            {
+                message.ErrorId = -100;
+                message.Message = "Where is Email?";
+
+                return message;
+            }
+            else if(signIn.Password == null)
+            {
+                message.ErrorId = -150;
+                message.Message = "Where is password?";
+
+                return message;
+            }
+
+            signIn.Password = HashPasswordC.EncodePasswordMd5(signIn.Password);
+
+            var result = IsCorrectPassAndEmail(signIn);
+            if (!result)
+            {
+                message.ErrorId = -300;
+                message.Message = "Incorrect Email Or password";
+
+                return message;
+            }
+
+
+            //find username
+            signIn.Username = GetUsernameByEmail(signIn.Email);
+
+            message.SuccessId = 200;
+            message.Message = "Done,Now You are sign in !";
+            return message;
+        }
+        private bool IsCorrectPassAndEmail(SignInVm signIn)
+        {
+            var password = _db.Users.FirstOrDefault(u => u.Username == signIn.Username).Password;
+            if(password != null)
+            {
+                if(password == signIn.Password)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        private string GetUsernameByEmail(string email)
+        {
+            return _db.Users.FirstOrDefault(u => u.Email == email ).Username.ToLower();
+        }
+        #endregion
 
         #region SignUp User
         public MessageData SignUpUser(SignUpUserVm signUpUser)

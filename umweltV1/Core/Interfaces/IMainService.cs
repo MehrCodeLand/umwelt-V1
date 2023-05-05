@@ -10,5 +10,6 @@ namespace umweltV1.Core.Interfaces
         ConfirmEmailAcountVm CreateConfirmModel(string email);
         MessageData AcceeptUser(string confirmCode);
         ConfirmEmailAcountVm ModelForSendAgainEmail(string confirmCode);
+        MessageData SignInUser(SignInVm signIn);
     }
 }

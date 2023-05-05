@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using umweltV1.Core.Interfaces;
 using umweltV1.Data.ViewModels;
 using umweltV1.Security.Sender.EmailSender;
@@ -56,6 +59,59 @@ namespace umweltV1.Areas.Main.Controllers
 
         #endregion
 
+        #region Sign In
+
+        [Route("SignIn")]
+        [HttpGet]
+        public IActionResult SignIn()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("HomeMain");
+            }
+
+            return View();
+        }
+
+        [Route("SignIn")]
+        [HttpPost]
+        public IActionResult SignIn( SignInVm signIn)
+        {
+            var message = _main.SignInUser(signIn);
+            if(message.ErrorId < 0)
+            {
+                TempData["error"] = message.Message.ToString();
+                return View();
+            }
+
+            
+            // time to sign in user
+            var username = signIn.Username.ToLower();
+            var email = signIn.Email.ToLower();
+
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier , email),
+                new Claim(ClaimTypes.Name, username),
+            };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            var propperties = new AuthenticationProperties
+            {
+                IsPersistent = true,
+                AllowRefresh = true,
+            };
+            HttpContext.SignInAsync(principal, propperties);
+
+
+            TempData["success"] = message.Message.ToString() ;
+            return View();
+        }
+
+
+        #endregion
 
         public IActionResult ConfirmAccount(  string id )
         {
