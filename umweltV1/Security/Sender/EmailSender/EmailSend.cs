@@ -8,7 +8,7 @@ namespace umweltV1.Security.Sender.EmailSender
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            mail.From = new MailAddress("mehrwebshad@gmail.com", "Register :) ");
+            mail.From = new MailAddress("mehrwebshad@gmail.com", "Register");
             mail.To.Add(To);
             mail.Subject = Subject;
             mail.Body = Body;

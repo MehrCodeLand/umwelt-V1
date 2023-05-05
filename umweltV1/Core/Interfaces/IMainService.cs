@@ -9,5 +9,6 @@ namespace umweltV1.Core.Interfaces
         bool CheackPermissionID(int permissionId, string email);
         ConfirmEmailAcountVm CreateConfirmModel(string email);
         MessageData AcceeptUser(string confirmCode);
+        ConfirmEmailAcountVm ModelForSendAgainEmail(string confirmCode);
     }
 }

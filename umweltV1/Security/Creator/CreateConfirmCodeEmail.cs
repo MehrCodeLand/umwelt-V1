@@ -8,7 +8,7 @@
             string ConfirmCode = rnd.Next(123, 99999).ToString();
             for(int i = 0; i < 5; ++i)
             {
-                ConfirmCode += char.ConvertFromUtf32(rnd.Next(65, 106));
+                ConfirmCode += char.ConvertFromUtf32(rnd.Next(66, 80));
             }
 
             return ConfirmCode;

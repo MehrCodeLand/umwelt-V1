@@ -65,7 +65,12 @@ namespace umweltV1.Areas.Main.Controllers
                 if(message.ErrorId == -2010)
                 {
                     TempData["error"] = message.Message.ToString();
+
                     // send email again
+                    var confirmCodeUser = _main.ModelForSendAgainEmail(id);  
+                    string body = _render.RenderToStringAsync("SignupView" , confirmCodeUser);
+                    EmailSend.Send(confirmCodeUser.Email, "Confirm Code-Active", body);
+
                     return View();
                 }
 

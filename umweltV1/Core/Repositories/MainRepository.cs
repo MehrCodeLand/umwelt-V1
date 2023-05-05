@@ -18,6 +18,24 @@ namespace umweltV1.Core.Repositories
         }
 
 
+        #region IsExist
+
+        /*
+         -50:Username Exist
+         50:Username Not Found   
+         30:Email Is Not Found
+         -30:Email IS Exist
+         */
+        private bool IsUsername(string username)
+        {
+            return _db.Users.Any(u => u.Username == username);
+        }
+        private bool IsEmail(string email)
+        {
+            return _db.Users.Any(u => u.Email == email);
+        }
+        #endregion
+
         // new and dear things
         public bool CheackPermissionID(int permissionId, string email)
         {
@@ -131,13 +149,13 @@ namespace umweltV1.Core.Repositories
                 message.Message = "Email Adress is not valid";
                 return message;    
             }
-            else if(IsEmail(signUpUser.Email.ToLower()) == -50)
+            else if(IsEmail(signUpUser.Email.ToLower()))
             {
                 message.ErrorId = -30;
                 message.Message = "Email Is Exist!";
                 return message; 
             }
-            else if(IsUsername(signUpUser.Username.ToLower()) == -50)
+            else if(IsUsername(signUpUser.Username.ToLower()))
             {
                 message.ErrorId = -50;
                 message.Message = "Username Is Exist!";
@@ -149,8 +167,6 @@ namespace umweltV1.Core.Repositories
                 message.Message = "Username mussent have a number!";
                 return message;
             }
-
-
 
             message.SuccessId = 100;
             message.ErrorId = 0;
@@ -190,7 +206,6 @@ namespace umweltV1.Core.Repositories
 
         #endregion
 
-
         #region Register Confirm Code
 
         public ConfirmEmailAcountVm CreateConfirmModel(string email)
@@ -204,12 +219,25 @@ namespace umweltV1.Core.Repositories
 
             return confirmVm;
         }
+        public ConfirmEmailAcountVm ModelForSendAgainEmail(string confirmCode)
+        {
+            // we should change confirm code again
+            var user = _db.Users.FirstOrDefault(u => u.ConfirmCode == confirmCode);
 
+            var confirmModel = new ConfirmEmailAcountVm()
+            {
+                ConfirmCode = user.ConfirmCode,
+                Username = user.Username,
+                Email = user.Email,
+            };
+
+            return confirmModel;
+        }
 
         /*
          
         -900:fake data
-        -2010:thtas to late
+        -2010:thats to late
         -3000:We cant update user
          300:Done
          */
@@ -227,20 +255,30 @@ namespace umweltV1.Core.Repositories
             }
             
             
-            if(user.Created.AddMinutes(15) > DateTime.Now)
+            if( !(user.DateToConfirmCode.AddMinutes(15) > DateTime.Now))
             {
                 // we will send him email again
+                // we change confirm code again 
+
+                user.ConfirmCode = CreateConfirmCodeEmail.ConfirmCode();
+                user.DateToConfirmCode = DateTime.Now;
+
+                UpdateUser(user);
+
                 message.ErrorId = -2010;
                 message.Message = "thtas to late,we will send\n" +
-                    "send you another email\n" +
+                    " you another email\n" +
                     "be quick ;)";
 
                 return message;
             }
 
+
+
             // ready to accept him
             user.IsConfirmCode = true;
-            confirmCode = CreateConfirmCodeEmail.ConfirmCode();
+            user.ConfirmCode = CreateConfirmCodeEmail.ConfirmCode();
+
 
             // time to update user
             var result = UpdateUser(user);
@@ -264,30 +302,6 @@ namespace umweltV1.Core.Repositories
             _db.Users.Update(user);
             Save();
             return true;
-        }
-        #endregion
-
-        #region IsExist
-
-        /*
-         -50:Username Exist
-         50:Username Not Found   
-         30:Email Is Not Found
-         -30:Email IS Exist
-         */
-        private int IsUsername(string username)
-        {
-            var result = _db.Users.Any(u => u.Username == username);
-            if (result) { return -50;  }
-
-            return 50;
-        }
-        private int IsEmail(string email)
-        {
-            bool result = _db.Users.Any(u => u.Email == email);
-            if (result) { return -30; }
-
-            return 30;
         }
         #endregion
 
