@@ -113,6 +113,28 @@ namespace umweltV1.Areas.Main.Controllers
 
         #endregion
 
+        #region Sign Out
+
+        [Route("SignOut")]
+        public IActionResult SignOutUser()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            Thread.Sleep(300);
+            return RedirectToAction("HomeMain");
+        }
+
+        //[Route("SignOut")]
+        //[HttpPost]
+        //public IActionResult SignOutUser(SignOutVm signOut)
+        //{
+        //    HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        //    return RedirectToAction("HomeMain");
+        //}
+
+
+        #endregion
+
+
         public IActionResult ConfirmAccount(  string id )
         {
             var message = _main.AcceeptUser(id);
