@@ -1,15 +1,36 @@
-﻿
+﻿@using umweltV1.Data.ViewModels
+@model SignInVm
+
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>SignIn</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Css/SignIn.css">
+    <title>SignIn-umwelt</title>
 </head>
 <body>
+    <div class="container">
+        <div class="header-div">
+            <div class="left">s</div>
+            <div class="middle">s</div>
+            <div class="right">s</div>
+        </div>
+
+        <div class="main">
+            <form method="post">
+                <input asp-for="Email" type="email" placeholder="Email">
+                <input asp-for="Password" type="password" placeholder="Password" maxlength="20">
+                <button class="submit" type="submit">
+                    SignIn
+                </button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

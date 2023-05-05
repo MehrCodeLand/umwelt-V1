@@ -107,7 +107,7 @@ namespace umweltV1.Core.Repositories
         }
         private bool IsCorrectPassAndEmail(SignInVm signIn)
         {
-            var password = _db.Users.FirstOrDefault(u => u.Username == signIn.Username).Password;
+            var password = _db.Users.FirstOrDefault(u => u.Email == signIn.Email).Password;
             if(password != null)
             {
                 if(password == signIn.Password)
